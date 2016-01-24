@@ -1,15 +1,13 @@
 //
-//  FirstViewController.h
+//  ProfileViewController.h
 //  techflix
 //
 //  Created by Akshay Easwaran on 1/23/16.
 //  Copyright © 2016 Akshay Easwaran. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import "TFTableViewController.h"
 
-@interface FirstViewController : UIViewController
-
+@interface ProfileViewController : TFTableViewController
 
 @end
-
