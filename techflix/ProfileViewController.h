@@ -7,7 +7,6 @@
 //
 
 #import "TFTableViewController.h"
-
+@class User;
 @interface ProfileViewController : TFTableViewController
-
 @end

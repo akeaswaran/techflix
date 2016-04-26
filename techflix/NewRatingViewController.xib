@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="NewRatingViewController">
+            <connections>
+                <outlet property="commentView" destination="aft-ul-U4U" id="5Ac-5A-O2n"/>
+                <outlet property="ratingView" destination="zqV-9z-b64" id="Om0-ec-8h2"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="589"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="What would you rate this movie?" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xK1-Zk-gEd">
+                    <rect key="frame" x="83" y="30" width="249" height="21"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <color key="textColor" red="1" green="1" blue="1" alpha="0.59999999999999998" colorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zqV-9z-b64" customClass="HCSStarRatingView">
+                    <rect key="frame" x="100" y="59" width="214" height="52"/>
+                    <color key="backgroundColor" red="0.035294117649999998" green="0.035294117649999998" blue="0.035294117649999998" alpha="1" colorSpace="calibratedRGB"/>
+                    <color key="tintColor" red="0.94117647059999998" green="0.70588235290000001" blue="0.062745098040000002" alpha="1" colorSpace="calibratedRGB"/>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="number" keyPath="maximumValue">
+                            <integer key="value" value="5"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="number" keyPath="minimumValue">
+                            <real key="value" value="0.0"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="number" keyPath="spacing">
+                            <real key="value" value="5"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                </view>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aft-ul-U4U" customClass="LPlaceholderTextView">
+                    <rect key="frame" x="8" y="135" width="398" height="446"/>
+                    <color key="backgroundColor" red="0.035294117649999998" green="0.035294117649999998" blue="0.035294117649999998" alpha="1" colorSpace="calibratedRGB"/>
+                </view>
+            </subviews>
+            <color key="backgroundColor" red="0.035294117649999998" green="0.035294117649999998" blue="0.035294117649999998" alpha="1" colorSpace="calibratedRGB"/>
+            <constraints>
+                <constraint firstItem="aft-ul-U4U" firstAttribute="bottom" secondItem="i5M-Pr-FkT" secondAttribute="bottomMargin" id="DPa-hm-ofB"/>
+                <constraint firstItem="aft-ul-U4U" firstAttribute="top" secondItem="zqV-9z-b64" secondAttribute="bottom" constant="24" id="U7j-ZR-rCh"/>
+                <constraint firstItem="aft-ul-U4U" firstAttribute="trailing" secondItem="i5M-Pr-FkT" secondAttribute="trailingMargin" id="XIi-Kn-BgS"/>
+                <constraint firstItem="aft-ul-U4U" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="135" id="a1r-JB-9IQ"/>
+                <constraint firstItem="xK1-Zk-gEd" firstAttribute="centerX" secondItem="zqV-9z-b64" secondAttribute="centerX" id="feH-BZ-eUe"/>
+                <constraint firstItem="aft-ul-U4U" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leadingMargin" id="gdZ-pr-T6g"/>
+                <constraint firstItem="xK1-Zk-gEd" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="83" id="jKP-iQ-nP7"/>
+                <constraint firstItem="xK1-Zk-gEd" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="30" id="sHO-lM-9fN"/>
+                <constraint firstItem="zqV-9z-b64" firstAttribute="top" secondItem="xK1-Zk-gEd" secondAttribute="bottom" constant="8" symbolic="YES" id="ucy-4e-gmW"/>
+                <constraint firstItem="zqV-9z-b64" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="100" id="v4M-aR-p6e"/>
+                <constraint firstItem="zqV-9z-b64" firstAttribute="centerX" secondItem="aft-ul-U4U" secondAttribute="centerX" id="whZ-qX-Mwm"/>
+            </constraints>
+            <simulatedStatusBarMetrics key="simulatedStatusBarMetrics" statusBarStyle="lightContent"/>
+            <nil key="simulatedTopBarMetrics"/>
+            <nil key="simulatedBottomBarMetrics"/>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <point key="canvasLocation" x="254" y="417.5"/>
+        </view>
+    </objects>
+</document>

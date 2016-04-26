@@ -11,13 +11,16 @@
 #import "TopMoviesViewController.h"
 #import "SearchViewController.h"
 #import "ProfileViewController.h"
+#import "TopRentalsViewController.h"
+#import "RecommendationsViewController.h"
+#import "IntroViewController.h"
+#import "User.h"
+#import "MasterObject.h"
 
-#import <HexColors.h>
+#import "HexColors.h"
+#import "STPopup.h"
 
 @implementation AppDelegate
-@synthesize managedObjectContext = _managedObjectContext;
-@synthesize managedObjectModel = _managedObjectModel;
-@synthesize persistentStoreCoordinator = _persistentStoreCoordinator;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
@@ -26,19 +29,44 @@
     [topMoviesVC.tabBarItem setTitle:@"Top Movies"];
     [topMoviesVC.tabBarItem setImage:[UIImage imageNamed:@"charts"]];
     
+    UINavigationController *topRentals = [[UINavigationController alloc] initWithRootViewController:[[TopRentalsViewController alloc] init]];
+    [topRentals.tabBarItem setTitle:@"Top Rentals"];
+    [topRentals.tabBarItem setImage:[UIImage imageNamed:@"dvd"]];
+    
+    UINavigationController *recs = [[UINavigationController alloc] initWithRootViewController:[[RecommendationsViewController alloc] init]];
+    recs.tabBarItem = [[UITabBarItem alloc] initWithTabBarSystemItem:UITabBarSystemItemFavorites tag:2];
+    [recs.tabBarItem setTitle:@"Recommendations"];
+    
+    
     UINavigationController *searchVC = [[UINavigationController alloc] initWithRootViewController:[[SearchViewController alloc] init]];
-    [searchVC setTabBarItem:[[UITabBarItem alloc] initWithTabBarSystemItem:UITabBarSystemItemSearch tag:1]];
+    [searchVC setTabBarItem:[[UITabBarItem alloc] initWithTabBarSystemItem:UITabBarSystemItemSearch tag:3]];
     
     UINavigationController *profileVC = [[UINavigationController alloc] initWithRootViewController:[[ProfileViewController alloc] init]];
     [profileVC.tabBarItem setTitle:@"Profile"];
     [profileVC.tabBarItem setImage:[UIImage imageNamed:@"profile"]];
     
-    [self.tabBarController setViewControllers:@[topMoviesVC, searchVC, profileVC]];
+    [self.tabBarController setViewControllers:@[topMoviesVC,topRentals, recs, searchVC, profileVC]];
     [self.window setRootViewController:self.tabBarController];
-    [self.window makeKeyAndVisible];
     [self setupAppearance];
-
+    [self.window makeKeyAndVisible];
+    
+    BOOL noFirstLaunch = [[NSUserDefaults standardUserDefaults] boolForKey:@"firstLaunch"];
+    BOOL loadSavedData = [MasterObject loadSavedData];
+    if (!noFirstLaunch || !loadSavedData) {
+        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"firstLaunch"];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+        
+        //display intro screen
+        [self performSelector:@selector(displayIntro) withObject:nil afterDelay:0.0];
+    }
+    
     return YES;
+}
+
+-(void)displayIntro {
+    UINavigationController *introNav = [[UINavigationController alloc] initWithRootViewController:[[IntroViewController alloc] init]];
+    [introNav setNavigationBarHidden:YES];
+    [_tabBarController presentViewController:introNav animated:YES completion:nil];
 }
 
 -(void)setupAppearance {
@@ -46,68 +74,14 @@
     [[UITabBar appearance] setBarTintColor:[UIColor blackColor]];
     [[UINavigationBar appearance] setBarStyle:UIBarStyleBlack];
     [[UITabBar appearance] setBarStyle:UIBarStyleBlack];
-    [[UITabBar appearance] setTintColor:[UIColor hx_colorWithHexString:@"#F0B410"]];
-    [[UINavigationBar appearance] setTintColor:[UIColor hx_colorWithHexString:@"#F0B410"]];
-    self.window.tintColor = [UIColor hx_colorWithHexString:@"#F0B410"];
-}
-
-- (void)saveContext{
-    NSError *error = nil;
-    NSManagedObjectContext *managedObjectContext = self.managedObjectContext;
-    if (managedObjectContext != nil) {
-        if ([managedObjectContext hasChanges] && ![managedObjectContext save:&error]) {
-            NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
-            abort();
-        }
-    }
-}
-
-- (NSManagedObjectContext *)managedObjectContext{
-    if (_managedObjectContext != nil) {
-        return _managedObjectContext;
-    }
+    [[UITabBar appearance] setTintColor:[UIColor hx_colorWithHexString:@"#eeb211"]];
+    [[UINavigationBar appearance] setTintColor:[UIColor hx_colorWithHexString:@"#eeb211"]];
+    self.window.tintColor = [UIColor hx_colorWithHexString:@"#eeb211"];
     
-    NSPersistentStoreCoordinator *coordinator = [self persistentStoreCoordinator];
-    if (coordinator != nil) {
-        _managedObjectContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSPrivateQueueConcurrencyType];
-        [_managedObjectContext setPersistentStoreCoordinator:coordinator];
-    }
-    return _managedObjectContext;
+    [STPopupNavigationBar appearance].tintColor = [UIColor hx_colorWithHexString:@"#eeb211"];
+    [STPopupNavigationBar appearance].barStyle = UIBarStyleBlack;
+    [[STPopupNavigationBar appearance] setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor whiteColor]}];
 }
 
-- (NSManagedObjectModel *)managedObjectModel{
-    if (_managedObjectModel != nil) {
-        return _managedObjectModel;
-    }
-    NSURL *modelURL = [[NSBundle mainBundle] URLForResource:@"movies" withExtension:@"momd"];
-    _managedObjectModel = [[NSManagedObjectModel alloc] initWithContentsOfURL:modelURL];
-    return _managedObjectModel;
-}
-
-- (NSPersistentStoreCoordinator *)persistentStoreCoordinator
-{
-    if (_persistentStoreCoordinator != nil) {
-        return _persistentStoreCoordinator;
-    }
-    
-    NSURL *storeURL = [[self applicationDocumentsDirectory] URLByAppendingPathComponent:@"movies.sqlite"];
-    
-    NSError *error = nil;
-    _persistentStoreCoordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:[self managedObjectModel]];
-    if (![_persistentStoreCoordinator addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:storeURL options:nil error:&error]) {
-        
-        NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
-        abort();
-    }
-    
-    return _persistentStoreCoordinator;
-}
-
-#pragma mark - Application's Documents directory
-
-// Returns the URL to the application's Documents directory.
-- (NSURL *)applicationDocumentsDirectory{
-    return [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] lastObject];
-}
 
 @end

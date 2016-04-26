@@ -9,5 +9,4 @@
 #import <UIKit/UIKit.h>
 
 @interface TFTableViewController : UITableViewController
-@property (strong, nonatomic) NSManagedObjectContext *managedContext;
 @end

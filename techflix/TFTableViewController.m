@@ -7,8 +7,9 @@
 //
 
 #import "TFTableViewController.h"
-
 #import "AppDelegate.h"
+
+#import "HexColors.h"
 
 @interface TFTableViewController ()
 
@@ -18,6 +19,12 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.managedContext = [(AppDelegate*)[[UIApplication sharedApplication] delegate] managedObjectContext];
+    self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"" style:self.navigationItem.backBarButtonItem.style target:nil action:nil];
+    [self.tableView setBackgroundColor:[UIColor hx_colorWithHexString:@"#090909"]];
+    [self.tableView setSeparatorColor:[UIColor darkGrayColor]];
+}
+
+-(UIStatusBarStyle)preferredStatusBarStyle {
+    return UIStatusBarStyleLightContent;
 }
 @end

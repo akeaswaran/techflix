@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="15E27e" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" initialViewController="01J-lp-oVM">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" initialViewController="01J-lp-oVM">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
     </dependencies>
     <scenes>
         <!--View Controller-->
@@ -26,23 +26,20 @@
                                 <color key="textColor" red="0.94117647059999998" green="0.70588235290000001" blue="0.062745098040000002" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="TechFlix" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EOZ-oV-Sh4">
-                                <rect key="frame" x="159" y="166" width="283" height="117"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="TFIcon1024.png" translatesAutoresizingMaskIntoConstraints="NO" id="3Gs-o7-XtS">
+                                <rect key="frame" x="121" y="123" width="359" height="184"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="117" id="RJ7-9q-ekZ"/>
-                                    <constraint firstAttribute="width" constant="283" id="raZ-q0-0be"/>
+                                    <constraint firstAttribute="height" constant="184" id="6fg-mJ-DI3"/>
+                                    <constraint firstAttribute="width" constant="359" id="leD-n5-9jb"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="44"/>
-                                <color key="textColor" red="0.94117647058823528" green="0.70588235294117641" blue="0.062745098039215685" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" red="0.035294117647058823" green="0.035294117647058823" blue="0.035294117647058823" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstAttribute="bottom" secondItem="4fH-bc-smV" secondAttribute="bottom" constant="20" symbolic="YES" id="7GG-Sf-GL1"/>
+                            <constraint firstItem="3Gs-o7-XtS" firstAttribute="centerX" secondItem="4fH-bc-smV" secondAttribute="centerX" id="CJE-i1-Y9m"/>
+                            <constraint firstItem="3Gs-o7-XtS" firstAttribute="top" secondItem="Llm-lL-Icb" secondAttribute="bottom" constant="103" id="M0l-ra-72L"/>
                             <constraint firstItem="4fH-bc-smV" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="etn-na-JCU"/>
-                            <constraint firstItem="EOZ-oV-Sh4" firstAttribute="top" secondItem="Llm-lL-Icb" secondAttribute="bottom" constant="146" id="s6a-Wq-Xzv"/>
-                            <constraint firstItem="EOZ-oV-Sh4" firstAttribute="centerX" secondItem="4fH-bc-smV" secondAttribute="centerX" id="vx6-0Z-D3c"/>
                         </constraints>
                     </view>
                 </viewController>
@@ -51,4 +48,7 @@
             <point key="canvasLocation" x="53" y="375"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="TFIcon1024.png" width="1024" height="1024"/>
+    </resources>
 </document>

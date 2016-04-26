@@ -7,24 +7,69 @@
 //
 
 #import "SearchViewController.h"
+#import "APIClient.h"
+#import "Movie.h"
+#import "MovieCell.h"
 
-#import <HexColors.h>
+#import "HexColors.h"
+#import "UIImageView+WebCache.h"
 
-@interface SearchViewController ()
 
+
+@interface SearchViewController () <UISearchBarDelegate, UIScrollViewDelegate>
+{
+    UISearchBar *movieSearchBar;
+    BOOL searchCompleted;
+    NSArray *returnedMovies;
+}
 @end
 
 @implementation SearchViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    //[self.tableView registerNib:[UINib nibWithNibName:@"MovieCell" bundle:nil] forCellReuseIdentifier:@"MovieCell"];
     self.tableView.rowHeight = UITableViewAutomaticDimension;
     [self.tableView setBackgroundColor:[UIColor hx_colorWithHexString:@"#090909"]];
     [self.tableView setSeparatorColor:[UIColor darkGrayColor]];
+    self.tableView.rowHeight = 50;
+    self.tableView.estimatedRowHeight = 50;
+    movieSearchBar = [[UISearchBar alloc] init];
+    [movieSearchBar setPlaceholder:@"Search Movies"];
+    [movieSearchBar setBarStyle:UIBarStyleBlack];
+    [movieSearchBar setDelegate:self];
+    self.navigationItem.titleView = movieSearchBar;
 }
 
--(void)refreshData {
-    
+-(void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    [movieSearchBar endEditing:YES];
+}
+
+- (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar
+{
+    [searchBar resignFirstResponder];
+    [self search:searchBar.text];
+}
+
+-(void)search:(NSString*)param {
+    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
+    NSMutableArray *movies = [NSMutableArray array];
+    [[APIClient sharedClient] searchMovies:param completion:^(NSError *error, NSArray *objects) {
+        if (!error) {
+            for (NSDictionary *jsonDict in objects) {
+                [movies addObject:[Movie newMovieWithDictionary:jsonDict]];
+                
+            }
+            returnedMovies = [movies copy];
+            
+        } else {
+            NSLog(@"ERROR: %@", error.localizedDescription);
+        }
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self.tableView reloadData];
+            [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+        });
+    }];
 }
 
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -32,22 +77,22 @@
 }
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    //return movies.count;
-    return 10;
+    return returnedMovies.count;
 }
 
 -(UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"MovieCell"];
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell"];
     if (!cell) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"MovieCell"];
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"Cell"];
         UIView *bgView = [[UIView alloc] initWithFrame:cell.frame];
         [bgView setBackgroundColor:[UIColor hx_colorWithHexString:@"#1A1A1A"]];
         cell.selectedBackgroundView = bgView;
         cell.backgroundColor = [UIColor hx_colorWithHexString:@"#090909"];
-        [cell.detailTextLabel setTextColor:[UIColor lightGrayColor]];
         [cell.textLabel setTextColor:[UIColor whiteColor]];
     }
     
+    Movie *movie = returnedMovies[indexPath.row];
+    [cell.textLabel setText:movie.title];
     
     return cell;
 }
@@ -56,8 +101,8 @@
     return CGFLOAT_MIN;
 }
 
--(void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
-    //left intentionally empty for row actions to work
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
 
