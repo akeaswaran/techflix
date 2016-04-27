@@ -10,6 +10,7 @@
 #import "APIClient.h"
 #import "Movie.h"
 #import "MovieCell.h"
+#import "MovieViewController.h"
 
 #import "HexColors.h"
 #import "UIImageView+WebCache.h"
@@ -103,6 +104,7 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    [self.navigationController pushViewController:[[MovieViewController alloc] initWithMovie:returnedMovies[indexPath.row]] animated:YES];
 }
 
 
