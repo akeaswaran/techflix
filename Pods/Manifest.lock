@@ -1,0 +1,48 @@
+PODS:
+  - AutoCoding (2.2.1)
+  - CompactConstraint (0.1.0)
+  - CSNotificationView (0.5.4)
+  - FCFileManager (1.0.17)
+  - HCSStarRatingView (1.4.5)
+  - HexColors (3.1.1)
+  - LPlaceholderTextView (1.0)
+  - SDWebImage (3.7.5):
+    - SDWebImage/Core (= 3.7.5)
+  - SDWebImage/Core (3.7.5)
+  - SSKeychain (1.3.1)
+  - STPopup (1.6.2)
+
+DEPENDENCIES:
+  - AutoCoding
+  - CompactConstraint
+  - CSNotificationView
+  - FCFileManager
+  - HCSStarRatingView (~> 1.4.5)
+  - HexColors
+  - LPlaceholderTextView (from `https://github.com/lukagabric/LPlaceholderTextView.git`)
+  - SDWebImage
+  - SSKeychain
+  - STPopup
+
+EXTERNAL SOURCES:
+  LPlaceholderTextView:
+    :git: https://github.com/lukagabric/LPlaceholderTextView.git
+
+CHECKOUT OPTIONS:
+  LPlaceholderTextView:
+    :commit: eaafff8643e15f606a8ffc36964f2ab5c18ff68c
+    :git: https://github.com/lukagabric/LPlaceholderTextView.git
+
+SPEC CHECKSUMS:
+  AutoCoding: b47e528426c84346371dd532b8e6458929e4da34
+  CompactConstraint: 562187c821afcc510536a3df799a16c25bea3d9b
+  CSNotificationView: 0792f5220163c2befaf1a9716aa3d5a7d6bd4fb1
+  FCFileManager: 8bfc931ce2a6223676147e9baf0e8a65c691eca6
+  HCSStarRatingView: bff3f89314d3b5013ce826ea11897d3129ff6b8c
+  HexColors: d837cebe691e52c867d401ecd2374111add5445f
+  LPlaceholderTextView: 66bc2325778706bcfbbacc8d5e64de2d5511561b
+  SDWebImage: 69c6303e3348fba97e03f65d65d4fbc26740f461
+  SSKeychain: 04c4ec40f4c3deda524e269bc76e5f30e638a174
+  STPopup: dca530d01343df997c5ed42a7465355cd5cbf01d
+
+COCOAPODS: 0.39.0

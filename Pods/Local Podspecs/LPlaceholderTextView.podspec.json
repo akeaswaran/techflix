@@ -1,0 +1,14 @@
+{
+  "name": "LPlaceholderTextView",
+  "version": "1.0",
+  "summary": "UITextView subclass with placeholder",
+  "platforms": {
+    "ios": "6.0"
+  },
+  "homepage": "https://github.com/lukagabric/LPlaceholderTextView",
+  "source": {
+    "git": "https://github.com/lukagabric/LPlaceholderTextView"
+  },
+  "source_files": "LPlaceholderTextView/LPlaceholderTextView/Classes/Core/LPlaceholderTextView/*.{h,m}",
+  "requires_arc": true
+}
